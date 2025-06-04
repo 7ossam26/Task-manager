@@ -1,4 +1,4 @@
-import "../App.css";
+import "../styles/App.css";
 import TextField from "@mui/material/TextField";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -17,7 +17,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 // Todo libraries
 import { useContext, useState } from "react";
-import { TodosContext } from "../Contexts/TodosContext.jsx";
+import { TodosContext } from "../app/Contexts/TodosContext.jsx";
 
 export default function Todo({ todo, deleteShow, updateShow }) {
   const { todos, setTodos } = useContext(TodosContext);
@@ -25,7 +25,8 @@ export default function Todo({ todo, deleteShow, updateShow }) {
   function handleCheckClick() {
     const updatedTodos = todos.map((t) => {
       if (t.id === todo.id) {
-        t.isCompleted = !t.isCompleted;
+        // Return a new object with the toggled isCompleted status
+        return { ...t, isCompleted: !t.isCompleted };
       }
       return t;
     });

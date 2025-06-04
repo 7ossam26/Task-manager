@@ -1,7 +1,7 @@
 // libraries
-import "../App.css";
+import "../styles/App.css";
 import { useState, useContext, useEffect, useMemo, useReducer } from "react";
-import { TodosContext } from "../Contexts/TodosContext.jsx";
+import { TodosContext } from "../app/Contexts/TodosContext.jsx";
 // MUI Material
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -21,7 +21,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 // components
 import Todo from "./Todo.jsx";
-import TodoReducer from "../reducers/TodoReducer.jsx";
+import TodoReducer from "../app/reducers/TodoReducer.jsx";
 
 export default function TodoList() {
   const [todos, dispatch] = useReducer(TodoReducer, []);

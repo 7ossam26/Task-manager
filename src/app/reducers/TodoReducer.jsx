@@ -1,6 +1,6 @@
 import { v4 as uid } from "uuid";
 
-export default function TodoReducer(currentTodos, action) {
+export default function TodoReducer(state = [], action) {
   switch (action.type) {
     case "add": {
       const newTodo = {
@@ -9,20 +9,20 @@ export default function TodoReducer(currentTodos, action) {
         details: "",
         isCompleted: false,
       };
-      const updatedTodos = [...currentTodos, newTodo];
+      const updatedTodos = [...state, newTodo];
       // just saving data in localstorage (todos)
       localStorage.setItem("todos", JSON.stringify(updatedTodos));
       return updatedTodos;
     }
     case "delete": {
-      const updatedTodos = currentTodos.filter((t) => {
+      const updatedTodos = state.filter((t) => {
         return t.id !== action.payload.id;
       });
       localStorage.setItem("todos", JSON.stringify(updatedTodos));
       return updatedTodos;
     }
     case "update": {
-      const updatedTodos = currentTodos.map((t) => {
+      const updatedTodos = state.map((t) => {
         if (t.id === action.payload.id) {
           return {
             ...t,

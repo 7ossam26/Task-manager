@@ -1,11 +1,11 @@
-import "./App.css";
+import "../styles/App.css";
 // libraries
 import { useState } from "react";
 import { v4 as uid } from "uuid";
 // import { Routes, Route } from "react-router-dom";
 
 // components
-import TodoList from "./Components/TodoList.jsx";
+import TodoList from "../components/TodoList.jsx";
 import { TodosContext } from "./Contexts/TodosContext.jsx";
 // MUI Material
 import { createTheme, ThemeProvider } from "@mui/material/styles";
