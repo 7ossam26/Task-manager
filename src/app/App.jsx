@@ -28,6 +28,7 @@ const initialTodos = [
     details: "Task 1 description",
     dueDate: new Date(Date.now() + 86400000).toISOString(),
     isCompleted: false,
+    priority: "medium",
   },
   {
     id: uid(),
@@ -35,6 +36,7 @@ const initialTodos = [
     details: "Task 2 description",
     dueDate: new Date(Date.now() + 172800000).toISOString(),
     isCompleted: false,
+    priority: "medium",
   },
 ];
 function App() {

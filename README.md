@@ -7,6 +7,7 @@ A simple and efficient task management application built with React. This applic
 *   **Add Tasks**: Easily add new tasks to your to-do list.
 *   **Mark as Complete/Incomplete**: Toggle the completion status of tasks.
 *   **Delete Tasks**: Remove tasks that are no longer needed.
+*   **Priority Levels**: Flag tasks as high, medium, or low priority and filter by priority.
 *   **Due Dates and Reminders**: Assign a due date to each task and highlight
     tasks that are overdue or due within the next 24 hours.
 *   **Persistent Storage**: Tasks are saved in local storage, so they persist across browser sessions.
