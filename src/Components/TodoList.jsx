@@ -14,6 +14,7 @@ import ToggleButton from "@mui/material/ToggleButton";
 import Grid from "@mui/material/Grid2";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import TextField from "@mui/material/TextField";
+import MenuItem from "@mui/material/MenuItem";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
@@ -31,7 +32,9 @@ export default function TodoList() {
   const [showUpdatePopup, setShowUpdatePopup] = useState(false);
   const [titleInput, setTitleInput] = useState("");
   const [dueDateInput, setDueDateInput] = useState("");
+  const [priorityInput, setPriorityInput] = useState("medium");
   const [todosType, setTodosType] = useState("all");
+  const [priorityFilter, setPriorityFilter] = useState("all");
 
   //filtration
   let toBeRendered = todos;
@@ -51,12 +54,20 @@ export default function TodoList() {
     toBeRendered = notCompletedTodos;
   }
 
+  if (priorityFilter !== "all") {
+    toBeRendered = toBeRendered.filter((t) => t.priority === priorityFilter);
+  }
+
   useEffect(() => {
     dispatch({ type: "get" });
   }, []);
 
   function changeTodosType(e) {
     setTodosType(e.target.value);
+  }
+
+  function changePriorityFilter(e) {
+    setPriorityFilter(e.target.value);
   }
 
   //  handlers
@@ -66,10 +77,12 @@ export default function TodoList() {
       payload: {
         title: titleInput,
         dueDate: dueDateInput,
+        priority: priorityInput,
       },
     });
     setTitleInput("");
     setDueDateInput("");
+    setPriorityInput("medium");
   }
 
   // Delete handlers
@@ -165,6 +178,24 @@ export default function TodoList() {
               setDialogTodo((prev) => ({ ...prev, dueDate: e.target.value }));
             }}
           />
+          {/*priority input*/}
+          <TextField
+            select
+            margin="dense"
+            id="priority"
+            name="priority"
+            label="Priority"
+            fullWidth
+            variant="standard"
+            value={dialogTodo?.priority || "medium"}
+            onChange={(e) => {
+              setDialogTodo((prev) => ({ ...prev, priority: e.target.value }));
+            }}
+          >
+            <MenuItem value="high">High</MenuItem>
+            <MenuItem value="medium">Medium</MenuItem>
+            <MenuItem value="low">Low</MenuItem>
+          </TextField>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleUpdateClose}>close</Button>
@@ -249,6 +280,34 @@ export default function TodoList() {
                 </ToggleButton>
               </ToggleButtonGroup>
             </Box>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                mt: 2,
+              }}
+            >
+              <ToggleButtonGroup
+                exclusive
+                style={{ marginTop: "10px" }}
+                value={priorityFilter}
+                onChange={changePriorityFilter}
+                color="primary"
+              >
+                <ToggleButton value={"all"} style={{ fontWeight: "500" }}>
+                  all priorities
+                </ToggleButton>
+                <ToggleButton value={"high"} style={{ fontWeight: "500" }}>
+                  high
+                </ToggleButton>
+                <ToggleButton value={"medium"} style={{ fontWeight: "500" }}>
+                  medium
+                </ToggleButton>
+                <ToggleButton value={"low"} style={{ fontWeight: "500" }}>
+                  low
+                </ToggleButton>
+              </ToggleButtonGroup>
+            </Box>
 
             {/*todos*/}
             {todosJsx}
@@ -256,7 +315,7 @@ export default function TodoList() {
 
             {/* inputs*/}
             <Grid container spacing={2} style={{ marginTop: "10px" }}>
-              <Grid size={5} className="">
+              <Grid size={4} className="">
                 <TextField
                   id="outlined-basic"
                   label="Task Title"
@@ -277,7 +336,22 @@ export default function TodoList() {
                   onChange={(e) => setDueDateInput(e.target.value)}
                 />
               </Grid>
-              <Grid size={3} className="">
+              <Grid size={2} className="">
+                <TextField
+                  select
+                  id="priority-new"
+                  label="Priority"
+                  variant="outlined"
+                  style={{ width: "100%" }}
+                  value={priorityInput}
+                  onChange={(e) => setPriorityInput(e.target.value)}
+                >
+                  <MenuItem value="high">High</MenuItem>
+                  <MenuItem value="medium">Medium</MenuItem>
+                  <MenuItem value="low">Low</MenuItem>
+                </TextField>
+              </Grid>
+              <Grid size={2} className="">
                 <Button
                   variant="contained"
                   style={{ width: "100%", height: "100%" }}

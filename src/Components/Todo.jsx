@@ -82,6 +82,9 @@ export default function Todo({ todo, deleteShow, updateShow }) {
                   Due: {dueDateObj.toLocaleString()}
                 </Typography>
               )}
+              <Typography variant="body2" sx={{ textAlign: "left" }}>
+                Priority: {todo.priority}
+              </Typography>
             </Grid>
             <Grid
               size={4}
