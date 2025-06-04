@@ -30,6 +30,7 @@ export default function TodoList() {
   const [showDeletePopup, setShowDeletePopup] = useState(false);
   const [showUpdatePopup, setShowUpdatePopup] = useState(false);
   const [titleInput, setTitleInput] = useState("");
+  const [dueDateInput, setDueDateInput] = useState("");
   const [todosType, setTodosType] = useState("all");
 
   //filtration
@@ -64,9 +65,11 @@ export default function TodoList() {
       type: "add",
       payload: {
         title: titleInput,
+        dueDate: dueDateInput,
       },
     });
     setTitleInput("");
+    setDueDateInput("");
   }
 
   // Delete handlers
@@ -145,6 +148,21 @@ export default function TodoList() {
             value={dialogTodo?.details || ""} // Safe access with fallback
             onChange={(e) => {
               setDialogTodo((prev) => ({ ...prev, details: e.target.value }));
+            }}
+          />
+          {/*due date input*/}
+          <TextField
+            margin="dense"
+            id="dueDate"
+            name="dueDate"
+            label="Due Date"
+            type="datetime-local"
+            InputLabelProps={{ shrink: true }}
+            fullWidth
+            variant="standard"
+            value={dialogTodo?.dueDate || ""}
+            onChange={(e) => {
+              setDialogTodo((prev) => ({ ...prev, dueDate: e.target.value }));
             }}
           />
         </DialogContent>
@@ -238,7 +256,7 @@ export default function TodoList() {
 
             {/* inputs*/}
             <Grid container spacing={2} style={{ marginTop: "10px" }}>
-              <Grid size={8} className="">
+              <Grid size={5} className="">
                 <TextField
                   id="outlined-basic"
                   label="Task Title"
@@ -249,6 +267,17 @@ export default function TodoList() {
                 />
               </Grid>
               <Grid size={4} className="">
+                <TextField
+                  id="due-date"
+                  label="Due Date"
+                  type="datetime-local"
+                  InputLabelProps={{ shrink: true }}
+                  style={{ width: "100%" }}
+                  value={dueDateInput}
+                  onChange={(e) => setDueDateInput(e.target.value)}
+                />
+              </Grid>
+              <Grid size={3} className="">
                 <Button
                   variant="contained"
                   style={{ width: "100%", height: "100%" }}

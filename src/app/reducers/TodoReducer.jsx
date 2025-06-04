@@ -7,6 +7,7 @@ export default function TodoReducer(state = [], action) {
         id: uid(),
         title: action.payload.title, // I will pass to action
         details: "",
+        dueDate: action.payload.dueDate,
         isCompleted: false,
       };
       const updatedTodos = [...state, newTodo];
@@ -28,6 +29,7 @@ export default function TodoReducer(state = [], action) {
             ...t,
             title: action.payload.title,
             details: action.payload.details,
+            dueDate: action.payload.dueDate,
           };
         }
         return t;

@@ -26,12 +26,14 @@ const initialTodos = [
     id: uid(),
     title: "task 1",
     details: "Task 1 description",
+    dueDate: new Date(Date.now() + 86400000).toISOString(),
     isCompleted: false,
   },
   {
     id: uid(),
     title: "task 2",
     details: "Task 2 description",
+    dueDate: new Date(Date.now() + 172800000).toISOString(),
     isCompleted: false,
   },
 ];

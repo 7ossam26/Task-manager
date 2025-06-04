@@ -21,6 +21,17 @@ import { TodosContext } from "../app/Contexts/TodosContext.jsx";
 
 export default function Todo({ todo, deleteShow, updateShow }) {
   const { todos, setTodos } = useContext(TodosContext);
+
+  const dueDateObj = todo.dueDate ? new Date(todo.dueDate) : null;
+  const now = new Date();
+  const isOverdue =
+    dueDateObj && !todo.isCompleted && dueDateObj.getTime() < now.getTime();
+  const isDueSoon =
+    dueDateObj &&
+    !todo.isCompleted &&
+    dueDateObj.getTime() >= now.getTime() &&
+    dueDateObj.getTime() - now.getTime() <= 24 * 60 * 60 * 1000;
+
   // event handlers
   function handleCheckClick() {
     const updatedTodos = todos.map((t) => {
@@ -50,6 +61,11 @@ export default function Todo({ todo, deleteShow, updateShow }) {
           background: "#283593",
           color: "white",
           marginTop: "10px",
+          border: isOverdue
+            ? "2px solid #e53935"
+            : isDueSoon
+            ? "2px solid #ffb300"
+            : "none",
         }}
       >
         <CardContent>
@@ -61,6 +77,11 @@ export default function Todo({ todo, deleteShow, updateShow }) {
               <Typography variant="h6" sx={{ textAlign: "left" }}>
                 {todo.details}
               </Typography>
+              {dueDateObj && (
+                <Typography variant="body2" sx={{ textAlign: "left" }}>
+                  Due: {dueDateObj.toLocaleString()}
+                </Typography>
+              )}
             </Grid>
             <Grid
               size={4}
