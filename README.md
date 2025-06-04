@@ -85,3 +85,13 @@ yarn dev
 ```
 
 This will typically start the application on `http://localhost:5173`. Open this URL in your web browser to view the app.
+
+## Running Tests
+
+Unit tests are written with Jest and React Testing Library. After dependencies are installed, run:
+
+```sh
+npm test
+```
+
+This command runs all Jest test suites.
